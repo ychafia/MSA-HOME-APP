@@ -1,11 +1,11 @@
 package fr.youness.mescoursesapi.controllers;
 
 import fr.youness.mescoursesapi.beans.Element;
+import fr.youness.mescoursesapi.services.IElementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +13,23 @@ import java.util.List;
 @RestController
 @RequestMapping("mes-courses-api")
 public class ElementController {
+    @Autowired
+    private IElementService elementService;
 
     @GetMapping(value = "/elements")
     public ResponseEntity<List<Element>> getElement() {
-        List<Element> _elements = new ArrayList<Element>();
-        _elements.add(new Element("Huile", false, 2));
-        _elements.add(new Element("Pommes", false, 4));
-        return new ResponseEntity<>(_elements, HttpStatus.OK);
+        return new ResponseEntity<>(elementService.getElements(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/element")
+    public ResponseEntity<?> addElement(@RequestBody Element element) {
+        Element _element = elementService.updateAndSaveElement(element);
+        return new ResponseEntity<>(_element.getId_element(), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/element/{id}")
+    public ResponseEntity<?> deleteElement(@PathVariable Long id) {
+        return new ResponseEntity<>(elementService.deleteElement(id), HttpStatus.OK);
     }
 
 }

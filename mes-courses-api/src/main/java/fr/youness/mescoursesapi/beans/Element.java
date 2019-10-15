@@ -1,6 +1,14 @@
 package fr.youness.mescoursesapi.beans;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Element {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_element;
     private String libelle;
     private Boolean isDone;
