@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/elementsapi")
+@RequestMapping("mes-courses-api")
 public class ElementController {
 
     @GetMapping(value = "/elements")
