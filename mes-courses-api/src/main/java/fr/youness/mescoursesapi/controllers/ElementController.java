@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("mes-courses-api")
+@CrossOrigin
 public class ElementController {
     @Autowired
     private IElementService elementService;
