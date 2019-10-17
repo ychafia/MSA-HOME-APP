@@ -32,6 +32,8 @@ Add a dockerfile :
 Build the docker image for the spring boot project
 	docker image build -t gateway-api-home-app-image .
 	
+Create an image for Gateway from Dockerfile :
+docker image build -t gateway-api-home-app-image .
 
 Next run this as a container :
 	docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d gateway-api-home-app-image
