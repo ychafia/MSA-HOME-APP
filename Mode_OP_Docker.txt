@@ -1,0 +1,80 @@
+Create network for communication between appi and mysql :
+	docker network create api-home-app-mysql
+	docker network ls
+	
+We will use the image provided by dockerhub to run as container :
+	docker container run --name mysqldb-home-app --network api-home-app-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=springboot-tuto -d mysql:8
+list of container to verify was correctly created
+	docker container ls
+	
+Check the log, to ensure all is ok :
+	docker container logs -f <id_container>
+	
+Connect to container mysql, to check if database was created :
+docker container exec -it <id_container> bash
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| springboot-tuto    |
+| sys                |
++--------------------+ ==> OK
+
+Add a dockerfile :
+	FROM openjdk:8
+	MAINTAINER Youness CHAFIA
+	COPY ./target/gateway-api-home-app.jar gateway-api-home-app.jar
+	CMD ["java","-jar","gateway-api-home-app.jar"]
+
+Build the docker image for the spring boot project
+	docker image build -t gateway-api-home-app-image .
+	
+
+Next run this as a container :
+	docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d gateway-api-home-app-image
+
+list container : docker container ls
+PS C:\Windows\system32> docker container ls
+CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                    NAMES
+42772d3e71af        gateway-api-home-app-image   "java -jar gateway-a…"   4 seconds ago       Up 3 seconds        0.0.0.0:8080->8080/tcp   gateway-api-home-app-container
+f52d9b2280f9        mysql:8                      "docker-entrypoint.s…"   42 minutes ago      Up 42 minutes       3306/tcp, 33060/tcp      mysqldb-home-app
+
+
+IDEM for other API's :
+docker image build -t mes-courses-api-image .
+docker container run --network api-home-app-mysql --name mes-courses-api-container -p 8090:8090 -d mes-courses-api-image
+
+
+docker image build -t mes-notes-api-image .
+docker container run --network api-home-app-mysql --name mes-notes-api-container -p 8070:8070 -d mes-notes-api-image
+
+Publish an image in docker hub :
+	docker image ls
+	docker login -u younesschafia
+	
+	docker image tag gateway-api-home-app-image younesschafia/gateway-api-home-app-image
+	docker image push younesschafia/gateway-api-home-app-image
+	
+Same things for other API :
+	docker image tag mes-courses-api-image younesschafia/mes-courses-api-image
+	docker image push younesschafia/mes-courses-api-image
+	
+	docker image tag mes-notes-api-image younesschafia/mes-notes-api-image
+	docker image push younesschafia/mes-notes-api-image
+	
+	
+======================== PROD
+(image mysql for raspberry : docker pull hypriot/rpi-mysql)
+
+docker network create api-home-app-mysql
+docker container run --name mysqldb-home-app --network api-home-app-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=springboot-tuto -d hypriot/rpi-mysql
+
+docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d younesschafia/gateway-api-home-app-image
+
+
+
+
+
