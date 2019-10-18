@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mysqldb-home-app:
+    image: mysql:8
+    container_name: mysqldb-home-app
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=springboot-tuto
+    networks:
+      - api-home-app-mysql
+  gateway-api-home-app-container:
+    image: younesschafia/gateway-api-home-app-image
+    container_name: gateway-api-home-app-container
+    depends_on:
+      - mysqldb-home-app
+    networks:
+      - api-home-app-mysql
+    ports:
+      - 8080:8080
+  mes-courses-api-container:
+    image: younesschafia/mes-courses-api-image
+    container_name: mes-courses-api-container
+    depends_on:
+      - mysqldb-home-app
+    networks:
+      - api-home-app-mysql
+    ports:
+      - 8090:8090
+  mes-notes-api-container:
+    image: younesschafia/mes-notes-api-image
+    container_name: mes-notes-api-container
+    depends_on:
+      - mysqldb-home-app
+    networks:
+      - api-home-app-mysql
+    ports:
+      - 8070:8070
+networks:
+  api-home-app-mysql:

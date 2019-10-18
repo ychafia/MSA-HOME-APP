@@ -29,11 +29,10 @@ Add a dockerfile :
 	COPY ./target/gateway-api-home-app.jar gateway-api-home-app.jar
 	CMD ["java","-jar","gateway-api-home-app.jar"]
 
-Build the docker image for the spring boot project
-	docker image build -t gateway-api-home-app-image .
 	
 Create an image for Gateway from Dockerfile :
-docker image build -t gateway-api-home-app-image .
+	docker image build -t gateway-api-home-app-image .
+	docker image build -t gateway-api-home-app-image-armv7 .
 
 Next run this as a container :
 	docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d gateway-api-home-app-image
@@ -47,12 +46,15 @@ f52d9b2280f9        mysql:8                      "docker-entrypoint.s…"   42 m
 
 IDEM for other API's :
 docker image build -t mes-courses-api-image .
+docker image build -t mes-courses-api-image-armv7 .
 docker container run --network api-home-app-mysql --name mes-courses-api-container -p 8090:8090 -d mes-courses-api-image
 
 
 docker image build -t mes-notes-api-image .
+docker image build -t mes-notes-api-image-armv7 .
 docker container run --network api-home-app-mysql --name mes-notes-api-container -p 8070:8070 -d mes-notes-api-image
 
+==========================================
 Publish an image in docker hub :
 	docker image ls
 	docker login -u younesschafia
@@ -66,7 +68,13 @@ Same things for other API :
 	
 	docker image tag mes-notes-api-image younesschafia/mes-notes-api-image
 	docker image push younesschafia/mes-notes-api-image
+
+Publish same image with an other tag:
+	docker push younesschafia/gateway-api-home-app-image-armv7:2
 	
+Add a tag to image :
+	1) docker tag gateway-api-home-app-image-armv7 younesschafia/gateway-api-home-app-image-armv7:2
+	2) docker push younesschafia/gateway-api-home-app-image-armv7:2
 	
 ======================== PROD
 (image mysql for raspberry : docker pull hypriot/rpi-mysql)
@@ -75,6 +83,14 @@ docker network create api-home-app-mysql
 docker container run --name mysqldb-home-app --network api-home-app-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=springboot-tuto -d hypriot/rpi-mysql
 
 docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d younesschafia/gateway-api-home-app-image
+docker container run --network api-home-app-mysql --name gateway-api-home-app-armv7-container -p 8080:8080 -d younesschafia/gateway-api-home-app-image
+
+Access to bash container :
+	docker container exec -it <id_container> bash
+	
+docker container run --network api-home-app-mysql --name gateway-api-home-app-armv7-container -p 8080:8080 -d younesschafia/gateway-api-home-app-image-armv7:2
+docker container run --network api-home-app-mysql --name mes-courses-api-armv7-container -p 8090:8090 -d younesschafia/mes-courses-api-image-armv7:2
+docker container run --network api-home-app-mysql --name mes-notes-api-armv7-container -p 8070:8070 -d younesschafia/mes-notes-api-image-armv7:2
 
 
 
