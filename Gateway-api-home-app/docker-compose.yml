@@ -4,6 +4,8 @@ services:
   mysqldb-home-app:
     image: mysql:8
     container_name: mysqldb-home-app
+    volumes:
+      - c:/tmp:/data
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=springboot-tuto
@@ -12,6 +14,8 @@ services:
   gateway-api-home-app-container:
     image: younesschafia/gateway-api-home-app-image
     container_name: gateway-api-home-app-container
+    volumes:
+      - c:/tmp:/data
     depends_on:
       - mysqldb-home-app
     networks:
@@ -21,6 +25,8 @@ services:
   mes-courses-api-container:
     image: younesschafia/mes-courses-api-image
     container_name: mes-courses-api-container
+    volumes:
+      - c:/tmp:/data
     depends_on:
       - mysqldb-home-app
     networks:
@@ -30,6 +36,8 @@ services:
   mes-notes-api-container:
     image: younesschafia/mes-notes-api-image
     container_name: mes-notes-api-container
+    volumes:
+      - c:/tmp:/data
     depends_on:
       - mysqldb-home-app
     networks:
@@ -38,3 +46,6 @@ services:
       - 8070:8070
 networks:
   api-home-app-mysql:
+
+volumes:
+  data:

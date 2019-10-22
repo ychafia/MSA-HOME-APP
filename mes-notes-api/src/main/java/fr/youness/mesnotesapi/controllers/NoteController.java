@@ -1,6 +1,7 @@
 package fr.youness.mesnotesapi.controllers;
 
 import fr.youness.mesnotesapi.beans.Note;
+import fr.youness.mesnotesapi.config.MesNotesPropertiesConfiguration;
 import fr.youness.mesnotesapi.services.INoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,12 @@ public class NoteController {
     @Autowired
     private INoteService noteService;
 
+    @Autowired
+    MesNotesPropertiesConfiguration mesNotesConfig;
+
     @GetMapping(value = "/notes")
     public ResponseEntity<List<Note>> getNotes() {
-        return new ResponseEntity<>(noteService.getNotes(), HttpStatus.OK);
+        return new ResponseEntity<>(noteService.getNotes().subList(0, mesNotesConfig.getLimitReturnedNotes()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/notes/{id}")

@@ -75,7 +75,13 @@ Publish same image with an other tag:
 Add a tag to image :
 	1) docker tag gateway-api-home-app-image-armv7 younesschafia/gateway-api-home-app-image-armv7:2
 	2) docker push younesschafia/gateway-api-home-app-image-armv7:2
+
 	
+Mount a shared volume between host and container :
+	1) Open "Settings" in Docker Desktop -> "Shared Drives" -> "Reset Credentials" -> select drive "C" -> "Apply"
+	2) docker run --rm -v c:/tmp:/data gateway-api-home-app-image ls /data
+	3) in docker-compose, add volumes:
+      - c:/tmp:/data
 ======================== PROD
 (image mysql for raspberry : docker pull hypriot/rpi-mysql)
 

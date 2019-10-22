@@ -2,6 +2,7 @@ package fr.youness.Gatewayapihomeapp.controllers;
 
 
 import fr.youness.Gatewayapihomeapp.beans.UserDto;
+import fr.youness.Gatewayapihomeapp.config.GatewayPropertiesConfiguration;
 import fr.youness.Gatewayapihomeapp.config.JwtRequest;
 import fr.youness.Gatewayapihomeapp.config.JwtResponse;
 import fr.youness.Gatewayapihomeapp.config.JwtTokenUtil;
@@ -28,9 +29,13 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
+    @Autowired
+    GatewayPropertiesConfiguration gatewayConfig;
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
+        System.out.println("###### gatewayConfig #########");
+        System.out.println(gatewayConfig.getVariableTest());
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());

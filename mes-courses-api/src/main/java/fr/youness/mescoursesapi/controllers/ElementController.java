@@ -1,6 +1,7 @@
 package fr.youness.mescoursesapi.controllers;
 
 import fr.youness.mescoursesapi.beans.Element;
+import fr.youness.mescoursesapi.config.MesCoursesPropertiesConfiguration;
 import fr.youness.mescoursesapi.services.IElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,13 @@ public class ElementController {
     @Autowired
     private IElementService elementService;
 
+    @Autowired
+    MesCoursesPropertiesConfiguration mesCoursesConfig;
+
     @GetMapping(value = "/elements")
     public ResponseEntity<List<Element>> getElement() {
+        System.out.println("########## getLimitReturnedElement #########");
+        System.out.println(mesCoursesConfig.getLimitReturnedElement());
         return new ResponseEntity<>(elementService.getElements(), HttpStatus.OK);
     }
 
