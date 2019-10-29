@@ -49,6 +49,7 @@ docker image build -t mes-courses-api-image .
 docker image build -t mes-courses-api-image-armv7 .
 docker container run --network api-home-app-mysql --name mes-courses-api-container -p 8090:8090 -d mes-courses-api-image
 
+docker image build -t config-server-app-image .
 
 docker image build -t mes-notes-api-image .
 docker image build -t mes-notes-api-image-armv7 .
@@ -62,6 +63,9 @@ Publish an image in docker hub :
 	docker image tag gateway-api-home-app-image younesschafia/gateway-api-home-app-image
 	docker image push younesschafia/gateway-api-home-app-image
 	
+	docker image tag config-server-app-image younesschafia/config-server-app-image
+	docker image push younesschafia/config-server-app-image
+	
 Same things for other API :
 	docker image tag mes-courses-api-image younesschafia/mes-courses-api-image
 	docker image push younesschafia/mes-courses-api-image
@@ -69,7 +73,7 @@ Same things for other API :
 	docker image tag mes-notes-api-image younesschafia/mes-notes-api-image
 	docker image push younesschafia/mes-notes-api-image
 
-Publish same image with an other tag:
+If is an existing image, you will publish th new version of image with an other tag:
 	docker push younesschafia/gateway-api-home-app-image-armv7:2
 	
 Add a tag to image :
@@ -98,7 +102,20 @@ docker container run --network api-home-app-mysql --name gateway-api-home-app-ar
 docker container run --network api-home-app-mysql --name mes-courses-api-armv7-container -p 8090:8090 -d younesschafia/mes-courses-api-image-armv7:2
 docker container run --network api-home-app-mysql --name mes-notes-api-armv7-container -p 8070:8070 -d younesschafia/mes-notes-api-image-armv7:2
 
+===============================
+We can define dependency with depend_on attribut to start container order.
+But, because docker-compose cano't khnow if th container is correctly started, we should launch container with this command : 
+
+
+docker container run --name mysqldb-home-app --network api-home-app-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=springboot-tuto -d mysql:8
+docker container run --network api-home-app-mysql --name config-server-app-container -p 8888:8888 -d younesschafia/config-server-app-image
+docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d younesschafia/gateway-api-home-app-image:2.3
+docker container logs -f gateway-api-home-app-container
+
+
+docker container run --network api-home-app-mysql --name mes-courses-api-container -p 8090:8090 -d younesschafia/mes-courses-api-image:2.3
+docker container run --network api-home-app-mysql --name mes-notes-api-container -p 8070:8070 -d younesschafia/mes-notes-api-image:2.3
 
 
 
-
+config-server-app-image-armv7

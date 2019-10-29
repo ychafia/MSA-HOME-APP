@@ -22,7 +22,9 @@ public class NoteController {
 
     @GetMapping(value = "/notes")
     public ResponseEntity<List<Note>> getNotes() {
-        return new ResponseEntity<>(noteService.getNotes().subList(0, mesNotesConfig.getLimitReturnedNotes()), HttpStatus.OK);
+        System.out.println("########### getLimitReturnedNotes ########### ");
+        System.out.println(mesNotesConfig.getLimitReturnedNotes());
+        return new ResponseEntity<>(noteService.getNotes(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/notes/{id}")

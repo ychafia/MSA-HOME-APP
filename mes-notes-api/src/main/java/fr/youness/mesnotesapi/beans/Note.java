@@ -1,9 +1,8 @@
 package fr.youness.mesnotesapi.beans;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,6 +14,8 @@ public class Note {
     private String description_note;
     private boolean completed_note;
     private Date recall_date_note;
+    @Column(nullable = false, updatable = false) @CreationTimestamp
+    private Date updated_timestamp;
 
     public Note() { }
 

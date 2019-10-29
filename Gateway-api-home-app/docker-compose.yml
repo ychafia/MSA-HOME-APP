@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  config-server-app-container:
+    image: younesschafia/config-server-app-image
+    container_name: config-server-app-container
+    volumes:
+      - c:/tmp:/data
+    networks:
+      - api-home-app-mysql
+    ports:
+      - 8888:8888
   mysqldb-home-app:
     image: mysql:8
     container_name: mysqldb-home-app
@@ -12,38 +21,18 @@ services:
     networks:
       - api-home-app-mysql
   gateway-api-home-app-container:
-    image: younesschafia/gateway-api-home-app-image
+    image: younesschafia/gateway-api-home-app-image:2.3
     container_name: gateway-api-home-app-container
     volumes:
       - c:/tmp:/data
     depends_on:
       - mysqldb-home-app
+    links:
+      - config-server-app-container
     networks:
       - api-home-app-mysql
     ports:
       - 8080:8080
-  mes-courses-api-container:
-    image: younesschafia/mes-courses-api-image
-    container_name: mes-courses-api-container
-    volumes:
-      - c:/tmp:/data
-    depends_on:
-      - mysqldb-home-app
-    networks:
-      - api-home-app-mysql
-    ports:
-      - 8090:8090
-  mes-notes-api-container:
-    image: younesschafia/mes-notes-api-image
-    container_name: mes-notes-api-container
-    volumes:
-      - c:/tmp:/data
-    depends_on:
-      - mysqldb-home-app
-    networks:
-      - api-home-app-mysql
-    ports:
-      - 8070:8070
 networks:
   api-home-app-mysql:
 
