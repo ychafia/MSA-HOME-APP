@@ -11,6 +11,9 @@ public class TypeEpargne {
     @ManyToMany
     private Collection<Year> year;
 
+    @ManyToOne(targetEntity = Epargne.class)
+    private Collection<Epargne> epargnes;
+
     public TypeEpargne() { }
 
     public TypeEpargne(String value_type) {
@@ -36,4 +39,8 @@ public class TypeEpargne {
     public Collection<Year> getYear() { return year; }
 
     public void setYear(Collection<Year> year_type) { this.year = year_type;}
+
+    public Collection<Epargne> getEpargnes() { return epargnes; }
+
+    public void setEpargnes(Collection<Epargne> epargnes) { this.epargnes = epargnes; }
 }

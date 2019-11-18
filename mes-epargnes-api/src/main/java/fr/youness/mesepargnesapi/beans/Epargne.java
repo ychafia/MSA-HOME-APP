@@ -1,9 +1,7 @@
 package fr.youness.mesepargnesapi.beans;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity(name="epargne")
 public class Epargne {
@@ -13,6 +11,8 @@ public class Epargne {
     private int montant_epargne;
     private String motif_epargne;
     private String year_epargne;
+    //@OneToMany(targetEntity = TypeEpargne.class)
+    private TypeEpargne type_epargne;
 
     public Epargne() { }
 
@@ -41,4 +41,8 @@ public class Epargne {
     public String getYear_epargne() { return year_epargne; }
 
     public void setYear_epargne(String year_epargne) { this.year_epargne = year_epargne; }
+
+    public TypeEpargne getType_epargne() { return type_epargne; }
+
+    public void setType_epargne(TypeEpargne type_epargne) { this.type_epargne = type_epargne; }
 }
