@@ -31,7 +31,7 @@ public class EpargneService  implements IEpargneService{
     }
 
     @Override
-    public List<Epargne> getEpargnes(String year) {
+    public List<Epargne> getEpargnes(Year year) {
         List<Epargne> _list = new ArrayList<>();
         epargneDao.getEpargneYear_Epargne(year).forEach(e -> _list.add(e));
         return _list;
@@ -42,6 +42,11 @@ public class EpargneService  implements IEpargneService{
         List<Year> _list = new ArrayList<>();
         yearDao.findAll().forEach(e -> _list.add(e));
         return _list;
+    }
+
+    @Override
+    public Year findByVlue(String year) {
+        return yearDao.findByValue(year);
     }
 
     @Override

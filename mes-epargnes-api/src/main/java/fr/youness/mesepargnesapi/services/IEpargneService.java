@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IEpargneService {
     List<Epargne> getAllEpargnes();
-    List<Epargne> getEpargnes(String year);
+    List<Epargne> getEpargnes(Year year);
     List<Year> getYears();
+    Year findByVlue(String year);
     List<TypeEpargne> findTypeEpargnesByYear(String year);
 }

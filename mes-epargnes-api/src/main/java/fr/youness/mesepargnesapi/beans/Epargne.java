@@ -1,18 +1,23 @@
 package fr.youness.mesepargnesapi.beans;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
-@Entity(name="epargne")
-public class Epargne {
+@Entity(name="Epargne")
+@Table(name="epargne")
+public class Epargne implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_epargne;
     private String date_epargne;
     private int montant_epargne;
     private String motif_epargne;
-    private String year_epargne;
-    //@OneToMany(targetEntity = TypeEpargne.class)
+
+    @ManyToOne
     private TypeEpargne type_epargne;
+
+    @ManyToOne
+    private Year year_epargne;
 
     public Epargne() { }
 
@@ -38,11 +43,11 @@ public class Epargne {
 
     public void setMotif_epargne(String motif_epargne) { this.motif_epargne = motif_epargne; }
 
-    public String getYear_epargne() { return year_epargne; }
-
-    public void setYear_epargne(String year_epargne) { this.year_epargne = year_epargne; }
-
     public TypeEpargne getType_epargne() { return type_epargne; }
 
     public void setType_epargne(TypeEpargne type_epargne) { this.type_epargne = type_epargne; }
+
+    public Year getYear_epargne() { return year_epargne; }
+
+    public void setYear_epargne(Year year_epargne) { this.year_epargne = year_epargne; }
 }

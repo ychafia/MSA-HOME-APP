@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -25,9 +26,16 @@ public class EpargnesController {
     }
 
     @GetMapping(value = "/epargnes/{year}")
-    public ResponseEntity<List<Epargne>> getEpargnes(@PathVariable String year) {
-        System.out.println("year :" + year);
-        return new ResponseEntity<>(epargneService.getEpargnes(year), HttpStatus.OK);
+    public ResponseEntity<?> getEpargnes(@PathVariable String year) {
+        /*Year _year = epargneService.findByVlue(year);
+        System.out.println("year :" + _year);
+        List<Epargne> _list = epargneService.getEpargnes(_year);
+        return new ResponseEntity<>(_list, HttpStatus.OK);*/
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("key", "value");
+        map.put("foo", "bar");
+        map.put("aa", "bb");
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping(value = "/years")

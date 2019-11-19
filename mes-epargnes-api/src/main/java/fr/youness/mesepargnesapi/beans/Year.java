@@ -1,16 +1,20 @@
 package fr.youness.mesepargnesapi.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
-@Entity(name="year")
-public class Year {
+@Entity(name="Year")
+public class Year implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_year;
     private String value_year;
     private boolean isActive_year;
-    //@ManyToMany
-    //private Collection<TypeEpargne> type_epargne;
+
+    @JsonIgnore @OneToMany(mappedBy = "year_epargne")
+    private Collection<Epargne> epargnes;
 
     public Year() { }
 
@@ -31,7 +35,7 @@ public class Year {
 
     public void setActive_year(boolean active_year) { isActive_year = active_year; }
 
-    //public Collection<TypeEpargne> getType_epargne() { return type_epargne; }
+    public Collection<Epargne> getEpargnes() { return epargnes; }
 
-    //public void setType_epargne(Collection<TypeEpargne> type_epargne) { this.type_epargne = type_epargne; }
+    public void setEpargnes(Collection<Epargne> epargnes) { this.epargnes = epargnes; }
 }

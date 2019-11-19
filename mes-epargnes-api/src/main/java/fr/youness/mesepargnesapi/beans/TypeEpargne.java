@@ -1,17 +1,19 @@
 package fr.youness.mesepargnesapi.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
-@Entity(name="type_epargne")
-public class TypeEpargne {
+@Entity(name="Type_epargne")
+public class TypeEpargne implements Serializable { //
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_type;
     private String value_type;
-    @ManyToMany
-    private Collection<Year> year;
 
-    @ManyToOne(targetEntity = Epargne.class)
+    @JsonIgnore
+    @OneToMany(mappedBy="type_epargne")
     private Collection<Epargne> epargnes;
 
     public TypeEpargne() { }
@@ -20,9 +22,7 @@ public class TypeEpargne {
         this.value_type = value_type;
     }
 
-    public Long getId_type() {
-        return id_type;
-    }
+    public Long getId_type() { return id_type; }
 
     public void setId_type(Long id_type) {
         this.id_type = id_type;
@@ -36,11 +36,11 @@ public class TypeEpargne {
         this.value_type = year;
     }
 
-    public Collection<Year> getYear() { return year; }
+    public Collection<Epargne> getEpargnes() {
+        return epargnes;
+    }
 
-    public void setYear(Collection<Year> year_type) { this.year = year_type;}
-
-    public Collection<Epargne> getEpargnes() { return epargnes; }
-
-    public void setEpargnes(Collection<Epargne> epargnes) { this.epargnes = epargnes; }
+    public void setEpargnes(Collection<Epargne> epargnes) {
+        this.epargnes = epargnes;
+    }
 }
