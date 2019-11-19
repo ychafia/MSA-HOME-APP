@@ -38,6 +38,14 @@ public class EpargneService  implements IEpargneService{
     }
 
     @Override
+    public List<Epargne> getEpargnesByType(TypeEpargne type) {
+        List<Epargne> _list = new ArrayList<>();
+        epargneDao.getEpargnesByType(type).forEach(e -> _list.add(e));
+        return _list;
+    }
+
+
+    @Override
     public List<Year> getYears() {
         List<Year> _list = new ArrayList<>();
         yearDao.findAll().forEach(e -> _list.add(e));

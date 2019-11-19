@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,11 +32,16 @@ public class EpargnesController {
         System.out.println("year :" + _year);
         List<Epargne> _list = epargneService.getEpargnes(_year);
         return new ResponseEntity<>(_list, HttpStatus.OK);*/
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("key", "value");
-        map.put("foo", "bar");
-        map.put("aa", "bb");
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        ArrayList<Object> array1 = new ArrayList<>();
+        List<TypeEpargne> _list = epargneService.findTypeEpargnesByYear(year);
+        Year _year = epargneService.findByVlue(year);
+        for (TypeEpargne type_ep : _list){
+            HashMap<String, Object> map2 = new HashMap<>();
+            map2.put("type", type_ep.getValue_type());
+            map2.put("epargnes", epargneService.getEpargnesByType(type_ep));
+            array1.add(map2);
+        }
+        return new ResponseEntity<>(array1, HttpStatus.OK);
     }
 
     @GetMapping(value = "/years")
