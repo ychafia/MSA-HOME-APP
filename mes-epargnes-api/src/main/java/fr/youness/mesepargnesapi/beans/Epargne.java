@@ -50,4 +50,16 @@ public class Epargne implements Serializable {
     public Year getYear_epargne() { return year_epargne; }
 
     public void setYear_epargne(Year year_epargne) { this.year_epargne = year_epargne; }
+
+    @Override
+    public String toString() {
+        return "Epargne{" +
+                "id_epargne=" + id_epargne +
+                ", date_epargne='" + date_epargne + '\'' +
+                ", montant_epargne=" + montant_epargne +
+                ", motif_epargne='" + motif_epargne + '\'' +
+                ", type_epargne=" + type_epargne +
+                ", year_epargne=" + year_epargne +
+                '}';
+    }
 }

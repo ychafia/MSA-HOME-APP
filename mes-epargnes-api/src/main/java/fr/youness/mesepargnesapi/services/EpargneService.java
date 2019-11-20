@@ -38,9 +38,9 @@ public class EpargneService  implements IEpargneService{
     }
 
     @Override
-    public List<Epargne> getEpargnesByType(TypeEpargne type) {
+    public List<Epargne> getEpargnesByTypeAndYear(TypeEpargne type, Year year) {
         List<Epargne> _list = new ArrayList<>();
-        epargneDao.getEpargnesByType(type).forEach(e -> _list.add(e));
+        epargneDao.getEpargnesByTypeAndYear(type, year).forEach(e -> _list.add(e));
         return _list;
     }
 
@@ -58,9 +58,33 @@ public class EpargneService  implements IEpargneService{
     }
 
     @Override
+    public Year findActiveYear() {
+        return yearDao.findActiveYear();
+    }
+
+    @Override
     public List<TypeEpargne> findTypeEpargnesByYear(String year) {
         List<TypeEpargne> _list = new ArrayList<>();
         typeEpargneDao.findTypeEpargnesByYear(year).forEach(e-> _list.add(e));
         return _list;
+    }
+
+    @Override
+    public TypeEpargne findTypeEpargnesByValue(String value) {
+        return typeEpargneDao.findTypeEpargnesByValue(value);
+    }
+
+    @Override
+    public Epargne addUpdateEpargne(Epargne epargne) {
+        return epargneDao.save(epargne);
+    }
+
+    @Override
+    public boolean deleteEpargne(Long id) {
+        if(epargneDao.findById(id).isPresent()) {
+            epargneDao.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

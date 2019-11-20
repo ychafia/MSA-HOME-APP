@@ -8,4 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface YearDao extends CrudRepository<Year, Long> {
     @Query("SELECT y FROM Year y where value_year = :year")
     Year findByValue(@Param("year") String year);
+
+    @Query("SELECT y FROM Year y where isActive_year = 1")
+    Year findActiveYear();
 }

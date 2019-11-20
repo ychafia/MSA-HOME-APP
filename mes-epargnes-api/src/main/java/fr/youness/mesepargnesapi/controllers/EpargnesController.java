@@ -28,20 +28,16 @@ public class EpargnesController {
 
     @GetMapping(value = "/epargnes/{year}")
     public ResponseEntity<?> getEpargnes(@PathVariable String year) {
-        /*Year _year = epargneService.findByVlue(year);
-        System.out.println("year :" + _year);
-        List<Epargne> _list = epargneService.getEpargnes(_year);
-        return new ResponseEntity<>(_list, HttpStatus.OK);*/
-        ArrayList<Object> array1 = new ArrayList<>();
-        List<TypeEpargne> _list = epargneService.findTypeEpargnesByYear(year);
+        ArrayList<Object> _list_epargnes = new ArrayList<>();
+        List<TypeEpargne> _list_type_ep = epargneService.findTypeEpargnesByYear(year);
         Year _year = epargneService.findByVlue(year);
-        for (TypeEpargne type_ep : _list){
+        for (TypeEpargne type_ep : _list_type_ep){
             HashMap<String, Object> map2 = new HashMap<>();
             map2.put("type", type_ep.getValue_type());
-            map2.put("epargnes", epargneService.getEpargnesByType(type_ep));
-            array1.add(map2);
+            map2.put("epargnes", epargneService.getEpargnesByTypeAndYear(type_ep, _year));
+            _list_epargnes.add(map2);
         }
-        return new ResponseEntity<>(array1, HttpStatus.OK);
+        return new ResponseEntity<>(_list_epargnes, HttpStatus.OK);
     }
 
     @GetMapping(value = "/years")
@@ -54,6 +50,31 @@ public class EpargnesController {
         List<TypeEpargne> _list = epargneService.findTypeEpargnesByYear(year);
         return new ResponseEntity<>(_list, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/epargne")
+    public ResponseEntity<Epargne> addUpdateEpargne(@RequestBody HashMap<String, String> obj) {
+        Epargne _epargne = new Epargne();
+        System.out.println(obj.get("id_epargne"));
+        if(obj.get("id_epargne") != null) {
+            _epargne.setId_epargne(Long.parseLong(obj.get("id_epargne")));
+        }
+        _epargne.setDate_epargne(obj.get("date_epargne"));
+        _epargne.setMontant_epargne(Integer.parseInt(obj.get("montant_epargne")));
+        _epargne.setMotif_epargne(obj.get("motif_epargne"));
+        String _type = obj.get("type");
+        TypeEpargne _type_epargne = epargneService.findTypeEpargnesByValue(_type);
+        Year _active_year = epargneService.findActiveYear();
+        _epargne.setType_epargne(_type_epargne);
+        _epargne.setYear_epargne(_active_year);
+        
+        return new ResponseEntity<Epargne>(epargneService.addUpdateEpargne(_epargne), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value ="/epargne/{id}")
+    public ResponseEntity<?> deleteEpargne(@PathVariable Long id) {
+        return new ResponseEntity<>(epargneService.deleteEpargne(id), HttpStatus.OK);
+    }
+
 
 
 }

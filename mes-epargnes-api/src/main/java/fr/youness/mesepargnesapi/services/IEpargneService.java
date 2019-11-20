@@ -10,8 +10,12 @@ import java.util.List;
 public interface IEpargneService {
     List<Epargne> getAllEpargnes();
     List<Epargne> getEpargnes(Year year);
-    List<Epargne> getEpargnesByType(TypeEpargne type);
+    List<Epargne> getEpargnesByTypeAndYear(TypeEpargne type, Year year);
     List<Year> getYears();
     Year findByVlue(String year);
+    Year findActiveYear();
     List<TypeEpargne> findTypeEpargnesByYear(String year);
+    TypeEpargne findTypeEpargnesByValue(String value);
+    Epargne addUpdateEpargne(Epargne epargne);
+    boolean deleteEpargne(Long id);
 }

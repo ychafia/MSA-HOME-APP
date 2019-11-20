@@ -14,6 +14,6 @@ public interface EpargneDao extends CrudRepository<Epargne, Long> {
     @Query("SELECT e FROM Epargne e where e.year_epargne = :year")
     public List<Epargne> getEpargneYear_Epargne(@Param("year") Year year);
 
-    @Query("SELECT e FROM Epargne e where e.type_epargne = :type")
-    public List<Epargne> getEpargnesByType(@Param("type") TypeEpargne type);
+    @Query("SELECT e FROM Epargne e where e.type_epargne = :type AND e.year_epargne = :year")
+    public List<Epargne> getEpargnesByTypeAndYear(@Param("type") TypeEpargne type, @Param("year") Year year);
 }

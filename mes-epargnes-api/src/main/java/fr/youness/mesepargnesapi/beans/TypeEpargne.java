@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity(name="Type_epargne")
-public class TypeEpargne implements Serializable { //
+public class TypeEpargne implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_type;
     private String value_type;
