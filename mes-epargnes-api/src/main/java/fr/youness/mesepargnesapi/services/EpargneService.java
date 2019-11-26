@@ -1,9 +1,11 @@
 package fr.youness.mesepargnesapi.services;
 
 import fr.youness.mesepargnesapi.beans.Epargne;
+import fr.youness.mesepargnesapi.beans.Totaux;
 import fr.youness.mesepargnesapi.beans.TypeEpargne;
 import fr.youness.mesepargnesapi.beans.Year;
 import fr.youness.mesepargnesapi.dao.EpargneDao;
+import fr.youness.mesepargnesapi.dao.TotauxDao;
 import fr.youness.mesepargnesapi.dao.TypeEpargneDao;
 import fr.youness.mesepargnesapi.dao.YearDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class EpargneService  implements IEpargneService{
 
     @Autowired
     private TypeEpargneDao typeEpargneDao;
+
+    @Autowired
+    private TotauxDao totauxDao;
 
     @Override
     public List<Epargne> getAllEpargnes() {
@@ -86,5 +91,17 @@ public class EpargneService  implements IEpargneService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Totaux>  getTotauxOfYear(String year, String month) {
+        List<Totaux> _lsit = totauxDao.getTotauxOfYear(year, month);
+        System.out.println(_lsit.toString());
+        return _lsit;
+    }
+
+    @Override
+    public Double getTotauxByMonthAndType(String year, String month, Long type) {
+        return totauxDao.getTotauxByMonthAndType(year, month, type);
     }
 }

@@ -15,4 +15,4 @@ VALUES
 (1, "Livret A"),
 (2, "PEL 1"),
 (3, "PEL 2"),
-(4, "Assurance Vie");
+(4, "Assurance vie");

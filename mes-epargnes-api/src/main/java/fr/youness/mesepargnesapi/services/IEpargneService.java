@@ -1,6 +1,7 @@
 package fr.youness.mesepargnesapi.services;
 
 import fr.youness.mesepargnesapi.beans.Epargne;
+import fr.youness.mesepargnesapi.beans.Totaux;
 import fr.youness.mesepargnesapi.beans.TypeEpargne;
 import fr.youness.mesepargnesapi.beans.Year;
 
@@ -18,4 +19,7 @@ public interface IEpargneService {
     TypeEpargne findTypeEpargnesByValue(String value);
     Epargne addUpdateEpargne(Epargne epargne);
     boolean deleteEpargne(Long id);
+    List<Totaux> getTotauxOfYear(String year, String month);
+    Double getTotauxByMonthAndType(String year, String month, Long type);
+
 }

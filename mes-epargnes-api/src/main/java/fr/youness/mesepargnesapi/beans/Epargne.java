@@ -10,7 +10,7 @@ public class Epargne implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_epargne;
     private String date_epargne;
-    private int montant_epargne;
+    private double montant_epargne;
     private String motif_epargne;
 
     @ManyToOne
@@ -35,9 +35,9 @@ public class Epargne implements Serializable {
 
     public void setDate_epargne(String date_epargne) { this.date_epargne = date_epargne; }
 
-    public int getMontant_epargne() { return montant_epargne; }
+    public double getMontant_epargne() { return montant_epargne; }
 
-    public void setMontant_epargne(int montant_epargne) { this.montant_epargne = montant_epargne; }
+    public void setMontant_epargne(double montant_epargne) { this.montant_epargne = montant_epargne; }
 
     public String getMotif_epargne() { return motif_epargne; }
 
