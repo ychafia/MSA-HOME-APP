@@ -19,7 +19,11 @@ public interface IEpargneService {
     TypeEpargne findTypeEpargnesByValue(String value);
     Epargne addUpdateEpargne(Epargne epargne);
     boolean deleteEpargne(Long id);
-    List<Totaux> getTotauxOfYear(String year, String month);
+    //List<Totaux> getTotauxOfYear(String year, String month);
+    //List<?> getTotaux();
+    List<?> getTotauxCredit();
+    List<?> getTotauxDebit();
+    List<?> getTotauxByTypeByYear();
     Double getTotauxByMonthAndType(String year, String month, Long type);
 
 }

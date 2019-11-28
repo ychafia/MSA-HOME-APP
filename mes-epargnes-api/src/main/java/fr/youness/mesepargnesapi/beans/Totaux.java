@@ -8,6 +8,8 @@ public class Totaux {
     @Id
     private Integer id_type;
     private Double total_type;
+    private double montant;
+    private Integer year;
 
     public Totaux() { }
 
@@ -27,11 +29,21 @@ public class Totaux {
         this.total_type = total_type;
     }
 
+    public double getMontant() { return montant; }
+
+    public void setMontant(double montant) { this.montant = montant; }
+
+    public Integer getYear() { return year; }
+
+    public void setYear(Integer year) { this.year = year; }
+
     @Override
     public String toString() {
         return "Totaux{" +
                 "id_type=" + id_type +
                 ", total_type=" + total_type +
+                ", montant=" + year +
+                ", year=" + year +
                 '}';
     }
 }

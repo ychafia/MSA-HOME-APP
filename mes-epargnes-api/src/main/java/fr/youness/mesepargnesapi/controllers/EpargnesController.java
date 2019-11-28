@@ -99,4 +99,9 @@ public class EpargnesController {
         }
         return new ResponseEntity<>(_totaux_by_month_by_type, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/epargnes/totaux/")
+    public ResponseEntity<?> getTotaux() {
+        return new ResponseEntity<>(epargneService.getTotauxByTypeByYear(), HttpStatus.OK);
+    }
 }

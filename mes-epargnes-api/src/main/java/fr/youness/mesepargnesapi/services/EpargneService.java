@@ -94,11 +94,29 @@ public class EpargneService  implements IEpargneService{
     }
 
     @Override
+    public List<?> getTotauxCredit() {
+        return totauxDao.getTotauxCredit();
+    }
+
+    @Override
+    public List<?> getTotauxDebit() {
+        return totauxDao.getTotauxDebit();
+    }
+
+    @Override
+    public List<?> getTotauxByTypeByYear() {
+        return totauxDao.getTotauxByTypeByYear();
+    }
+
+
+    /*@Override
     public List<Totaux>  getTotauxOfYear(String year, String month) {
         List<Totaux> _lsit = totauxDao.getTotauxOfYear(year, month);
         System.out.println(_lsit.toString());
         return _lsit;
-    }
+    }*/
+
+
 
     @Override
     public Double getTotauxByMonthAndType(String year, String month, Long type) {
