@@ -1,11 +1,14 @@
 package fr.youness.mesepargnesapi.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.youness.mesepargnesapi.beans.Epargne;
 import fr.youness.mesepargnesapi.beans.Totaux;
 import fr.youness.mesepargnesapi.beans.TypeEpargne;
 import fr.youness.mesepargnesapi.beans.Year;
 import fr.youness.mesepargnesapi.services.IEpargneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -104,4 +107,17 @@ public class EpargnesController {
     public ResponseEntity<?> getTotaux() {
         return new ResponseEntity<>(epargneService.getTotauxByTypeByYear(), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/epargnes/totaux/")
+    public ResponseEntity<?> updateTotaux(@RequestBody TotalPersist obj) {
+        System.out.println(obj.toString());
+
+        return new ResponseEntity<>(epargneService.updateTotaux(Double.parseDouble(obj.solde), obj.year, Long.parseLong(obj.id_type)), HttpStatus.OK);
+    }
+}
+
+class TotalPersist {
+    public String solde;
+    public String year;
+    public String id_type;
 }

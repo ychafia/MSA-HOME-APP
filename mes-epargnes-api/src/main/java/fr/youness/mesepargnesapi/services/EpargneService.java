@@ -122,4 +122,9 @@ public class EpargneService  implements IEpargneService{
     public Double getTotauxByMonthAndType(String year, String month, Long type) {
         return totauxDao.getTotauxByMonthAndType(year, month, type);
     }
+
+    @Override
+    public int updateTotaux(Double new_solde, String year, Long id_type) {
+        return totauxDao.updateTotaux(new_solde, year, id_type);
+    }
 }

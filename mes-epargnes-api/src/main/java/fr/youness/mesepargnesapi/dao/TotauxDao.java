@@ -1,10 +1,12 @@
 package fr.youness.mesepargnesapi.dao;
 
 import fr.youness.mesepargnesapi.beans.Totaux;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface TotauxDao  extends CrudRepository<Totaux, Long> {
@@ -23,4 +25,9 @@ public interface TotauxDao  extends CrudRepository<Totaux, Long> {
 
     @Query(value = "SELECT year, total_type, montant FROM totaux GROUP BY year, total_type, montant", nativeQuery = true)
     List<?> getTotauxByTypeByYear();
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE totaux SET montant = :montant WHERE year = :year AND total_type = :id_type", nativeQuery = true)
+    int updateTotaux(@Param("montant") Double montant, @Param("year") String year, @Param("id_type") Long type);
 }

@@ -4,6 +4,7 @@ import fr.youness.mesepargnesapi.beans.Epargne;
 import fr.youness.mesepargnesapi.beans.Totaux;
 import fr.youness.mesepargnesapi.beans.TypeEpargne;
 import fr.youness.mesepargnesapi.beans.Year;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -25,5 +26,6 @@ public interface IEpargneService {
     List<?> getTotauxDebit();
     List<?> getTotauxByTypeByYear();
     Double getTotauxByMonthAndType(String year, String month, Long type);
+    int updateTotaux(Double new_solde, String year, Long id_type);
 
 }
