@@ -24,7 +24,10 @@ public interface TotauxDao  extends CrudRepository<Totaux, Long> {
     List<?> getTotauxDebit();
 
     @Query(value = "SELECT year, total_type, montant FROM totaux GROUP BY year, total_type, montant", nativeQuery = true)
-    List<?> getTotauxByTypeByYear();
+    List<?> getTotaux();
+
+    @Query(value = "SELECT year, total_type, montant FROM totaux WHERE year = :year GROUP BY year, total_type, montant", nativeQuery = true)
+    List<?> getTotauxByTypeByYear(@Param("year") String year);
 
     @Modifying
     @Transactional

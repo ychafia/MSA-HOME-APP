@@ -104,8 +104,13 @@ public class EpargneService  implements IEpargneService{
     }
 
     @Override
-    public List<?> getTotauxByTypeByYear() {
-        return totauxDao.getTotauxByTypeByYear();
+    public List<?> getTotaux() {
+        return totauxDao.getTotaux();
+    }
+
+    @Override
+    public List<?> getTotauxByTypeByYear(String year) {
+        return totauxDao.getTotauxByTypeByYear(year);
     }
 
 

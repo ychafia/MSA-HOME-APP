@@ -105,7 +105,12 @@ public class EpargnesController {
 
     @GetMapping(value = "/epargnes/totaux/")
     public ResponseEntity<?> getTotaux() {
-        return new ResponseEntity<>(epargneService.getTotauxByTypeByYear(), HttpStatus.OK);
+        return new ResponseEntity<>(epargneService.getTotaux(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/totaux/{year}")
+    public ResponseEntity<?> getTotauxByYear(@PathVariable("year") String year) {
+        return new ResponseEntity<>(epargneService.getTotauxByTypeByYear(year), HttpStatus.OK);
     }
 
     @PutMapping(value = "/epargnes/totaux/")

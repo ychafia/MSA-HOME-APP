@@ -24,7 +24,8 @@ public interface IEpargneService {
     //List<?> getTotaux();
     List<?> getTotauxCredit();
     List<?> getTotauxDebit();
-    List<?> getTotauxByTypeByYear();
+    List<?> getTotaux();
+    List<?> getTotauxByTypeByYear(String year);
     Double getTotauxByMonthAndType(String year, String month, Long type);
     int updateTotaux(Double new_solde, String year, Long id_type);
     Totaux addTotaux(Totaux total);
