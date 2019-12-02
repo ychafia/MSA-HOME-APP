@@ -127,4 +127,18 @@ public class EpargneService  implements IEpargneService{
     public int updateTotaux(Double new_solde, String year, Long id_type) {
         return totauxDao.updateTotaux(new_solde, year, id_type);
     }
+
+    @Override
+    public Totaux addTotaux(Totaux total) {
+        int isExist = totalIsExist(total.getYear(), new Double(total.getTotal_type()).longValue() );
+        if(isExist == 0) {
+            return totauxDao.save(total);
+        }
+        return null;
+    }
+
+    @Override
+    public int totalIsExist(Integer year, Long id_type) {
+        return totauxDao.totalIsExist(year, id_type);
+    }
 }

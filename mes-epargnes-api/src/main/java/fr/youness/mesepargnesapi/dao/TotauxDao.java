@@ -30,4 +30,7 @@ public interface TotauxDao  extends CrudRepository<Totaux, Long> {
     @Transactional
     @Query(value = "UPDATE totaux SET montant = :montant WHERE year = :year AND total_type = :id_type", nativeQuery = true)
     int updateTotaux(@Param("montant") Double montant, @Param("year") String year, @Param("id_type") Long type);
+
+    @Query(value = "SELECT count(*) FROM totaux WHERE year = :year AND total_type = :id_type", nativeQuery = true)
+    int totalIsExist(@Param("year") Integer year, @Param("id_type") Long id_type);
 }

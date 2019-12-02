@@ -1,17 +1,24 @@
 package fr.youness.mesepargnesapi.beans;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Totaux {
-    @Id
+    @Id @GeneratedValue
     private Integer id_type;
     private Double total_type;
     private double montant;
     private Integer year;
 
     public Totaux() { }
+
+    public Totaux(Double total_type, double montant, Integer year) {
+        this.total_type = total_type;
+        this.montant = montant;
+        this.year = year;
+    }
 
     public Integer getId_type() {
         return id_type;

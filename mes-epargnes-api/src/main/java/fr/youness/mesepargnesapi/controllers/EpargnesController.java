@@ -108,11 +108,16 @@ public class EpargnesController {
         return new ResponseEntity<>(epargneService.getTotauxByTypeByYear(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/epargnes/totaux/")
+    @PutMapping(value = "/epargnes/totaux/")
     public ResponseEntity<?> updateTotaux(@RequestBody TotalPersist obj) {
         System.out.println(obj.toString());
-
         return new ResponseEntity<>(epargneService.updateTotaux(Double.parseDouble(obj.solde), obj.year, Long.parseLong(obj.id_type)), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/epargnes/totaux/")
+    public ResponseEntity<?> addTotaux(@RequestBody Totaux total) {
+        System.out.println(total.toString());
+        return new ResponseEntity<>(epargneService.addTotaux(total), HttpStatus.OK);
     }
 }
 
@@ -120,4 +125,13 @@ class TotalPersist {
     public String solde;
     public String year;
     public String id_type;
+
+    @Override
+    public String toString() {
+        return "TotalPersist{" +
+                "solde='" + solde + '\'' +
+                ", year='" + year + '\'' +
+                ", id_type='" + id_type + '\'' +
+                '}';
+    }
 }
