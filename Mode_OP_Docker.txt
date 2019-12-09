@@ -73,6 +73,9 @@ Same things for other API :
 	docker image tag mes-notes-api-image younesschafia/mes-notes-api-image
 	docker image push younesschafia/mes-notes-api-image
 
+	docker image tag mes-epargnes-api-image younesschafia/mes-epargnes-api-image:3.1
+	docker image push younesschafia/mes-epargnes-api-image:3.1
+
 If is an existing image, you will publish th new version of image with an other tag:
 	docker push younesschafia/gateway-api-home-app-image-armv7:2
 	
@@ -119,3 +122,34 @@ docker container run --network api-home-app-mysql --name mes-notes-api-container
 
 
 config-server-app-image-armv7
+
+
+##########################################################################"
+
+#### Config-server :
+mvn clean install -DskipTests
+docker image build -t config-server-app-image .
+docker container run --network api-home-app-mysql --name config-server-app-container -p 8888:8888 -d config-server-app-image
+
+#### Gateway :
+mvn clean install -DskipTests
+docker image build -t gateway-api-home-app-image .
+docker container run --network api-home-app-mysql --name gateway-api-home-app-container -p 8080:8080 -d gateway-api-home-app-image
+
+#### Mes-courses :
+mvn clean install -DskipTests
+docker image build -t mes-courses-api-image .
+docker container run --network api-home-app-mysql --name mes-courses-api-container -p 8090:8090 -d mes-courses-api-image
+
+#### Mes-notes :
+mvn clean install -DskipTests
+docker image build -t mes-notes-api-image .
+docker container run --network api-home-app-mysql --name mes-notes-api-container -p 8070:8070 -d mes-notes-api-image
+
+#### Mes-epargnes :
+mvn clean install -DskipTests
+docker image build -t mes-epargnes-api-image .
+docker container run --network api-home-app-mysql --name mes-epargnes-api-container -p 8060:8060 -d mes-epargnes-api-image
+
+
+
